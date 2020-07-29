@@ -1,0 +1,18 @@
+[submodule "3rdparty/simdjson"]
+	path = 3rdparty/simdjson
+	url = https://github.com/simdjson/simdjson.git
+[submodule "3rdparty/googletest"]
+	path = 3rdparty/googletest
+	url = https://github.com/google/googletest.git
+# [submodule "3rdparty/eigen"]
+# 	path = 3rdparty/eigen
+# 	url = https://gitlab.com/libeigen/eigen.git
+[submodule "3rdparty/gperftools"]
+	path = 3rdparty/gperftools
+	url = https://github.com/gperftools/gperftools.git
+[submodule "3rdparty/spdlog"]
+	path = 3rdparty/spdlog
+	url = https://github.com/gabime/spdlog.git
+[submodule "runtime"]
+	path = runtime
+	url = git@github.com:jasonjx-w/runtime.git
