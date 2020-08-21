@@ -11,7 +11,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest, macOS-latest]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -26,6 +26,8 @@ jobs:
 
     - name: Prepare dependencies
       run: |
+        git config --global user.name "jasonjx-w"
+        git config --global user.email "jasonjx.w@outlook.com"
         git submodule update --init --remote --recursive
 
     - name: Build
