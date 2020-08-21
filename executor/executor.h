@@ -1,23 +1,31 @@
+#ifndef EXECUTOR_EXECUTOR_H_
+#define EXECUTOR_EXECUTOR_H_
 
-// for cpu and gpu.
+#include "kernels.h"
+#include "graph.h"
+#include "worker.h"
+#include <iostream>
+#include <queue>
+#include <vector>
+
+namespace ops {
+
+
 class Executor {
   public:
-    void Init(const Graph *graph) {}
-    void SetUp() {}  // set up env, choose op to run
+    void Init(std::vector<const Graph *> sub_graph) {}
+    void SetUp() {}     // set up env
     void TearDown() {}  // tear down env
-    void Run() {}  // 
+    void Run() {}       // 
   private:
-    std::vector<Node> nodes_;
-    std::queue<Kernel> kernels_;
-}
+    // std::vector<Worker> workers_;
+  private:
+    Kernel NodeToKernel(const Node *node);
+};
 
-// set up cpu run env.
-// and run whatever op
-class CPUExecutor : public Executor {
 
-}
 
-// set up gpu run env.
-// and run whatever op
-class GPUExecutor : public Executor {
-}
+}  // namespace ops
+
+#endif
+
