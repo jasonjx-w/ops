@@ -22,9 +22,8 @@ jobs:
       run: |
         # git clone git@github.com:Homebrew/brew.git
         git clone https://github.com/Homebrew/brew.git
-        ln -s brew/bin/brew /usr/bin/brew
-        sudo brew install automake
-        sudo brew install libtool
+        sudo brew/bin/brew install automake
+        sudo brew/bin/brew install libtool
 
     - name: Prepare dependencies
       run: |
