@@ -20,7 +20,8 @@ jobs:
 
     - name: Set up environment
       run: |
-        git clone git@github.com:Homebrew/brew.git
+        # git clone git@github.com:Homebrew/brew.git
+        git clone https://github.com/Homebrew/brew.git
         ln -s brew/bin/brew /usr/bin/brew
         sudo brew install automake
         sudo brew install libtool
