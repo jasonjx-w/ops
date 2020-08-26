@@ -9,7 +9,30 @@ on: [push, pull_request]
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  ubuntu:
+  macos-build:
+    # The type of runner that the job will run on
+    runs-on: macOS-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    - name: Set up environment
+      run: |
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+        brew install automake
+        brew install libtool
+
+    - name: Prepare dependencies
+      run: |
+        git submodule update --init --remote --recursive
+
+    - name: Build
+      run: ./build.sh
+
+  # This workflow contains a single job called "build"
+  ubuntu-build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -32,24 +55,10 @@ jobs:
       run: ./build.sh
 
   # This workflow contains a single job called "build"
-  macos:
-    # The type of runner that the job will run on
-    runs-on: macOS-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-
-    - name: Set up environment
+  ubuntu-run:
+    needs: ubuntu-build
+    - name: ls
       run: |
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-        sudo brew install automake
-        sudo brew install libtool
+        cd build
+        ls 
 
-    - name: Prepare dependencies
-      run: |
-        git submodule update --init --remote --recursive
-
-    - name: Build
-      run: ./build.sh
