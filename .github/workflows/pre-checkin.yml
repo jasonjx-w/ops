@@ -15,7 +15,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  macos-build:
+  macos-deploy:
     # The type of runner that the job will run on
     runs-on: macOS-latest
 
@@ -31,8 +31,8 @@ jobs:
     - name: Set up environment
       run: |
         mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
-        homebrew/bin/brew install automake
-        homebrew/bin/brew install libtool
+        brew install automake
+        brew install libtool
 
     - name: Prepare dependencies
       run: |
@@ -42,7 +42,7 @@ jobs:
       run: ./build.sh
 
   # This workflow contains a single job called "build"
-  ubuntu-build:
+  ubuntu-deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
