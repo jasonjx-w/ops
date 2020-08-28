@@ -1,3 +1,7 @@
+# OPS
+[![Build Status](https://travis-ci.org/jasonjx-w/ops.svg?branch=master)](https://travis-ci.org/jasonjx-w/ops) 
+[![License](https://img.shields.io/badge/License-MIT%20License-blue.svg)](https://opensource.org/licenses/MIT)
+
 # 关于
 1. 模拟复现深度学习框架(tensorflow, mxnet)的特性
 2. 使用不同指令集(库)的实现算子
