@@ -39,7 +39,9 @@ jobs:
         git submodule update --init --remote --recursive
 
     - name: Build
-      run: ./build.sh
+      run: |
+        source env.sh
+        ./build.sh
 
   # This workflow contains a single job called "build"
   ubuntu-deploy:
