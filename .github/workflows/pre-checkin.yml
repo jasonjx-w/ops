@@ -4,7 +4,11 @@ name: TESTING
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
-on: [push, pull_request]
+on: 
+  push:
+  - branches:
+    - master
+  pull_request:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -24,7 +28,6 @@ jobs:
 
     - name: Set up environment
       run: |
-        xcode-select --install
         mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
         sudo homebrew/bin/brew install automake
         sudo homebrew/bin/brew install libtool
@@ -72,7 +75,6 @@ jobs:
     steps:
     - name: Run Test
       run: |
-        cd build
         ls
 
     - name: Run Test
