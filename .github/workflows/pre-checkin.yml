@@ -33,6 +33,11 @@ jobs:
         mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
         brew install automake
         brew install libtool
+        brew install cppcheck
+
+    - name: Static code analysis
+      run: |
+        cppcheck . -i3rdparty/
 
     - name: Prepare dependencies
       run: |
@@ -60,6 +65,11 @@ jobs:
         sudo apt-get update
         sudo apt-get install automake
         sudo apt-get install libtool
+        sudo apt-get install cppcheck
+
+    - name: Static code analysis
+      run: |
+        cppcheck . -i3rdparty/
 
     - name: Prepare dependencies
       run: |
