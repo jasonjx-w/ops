@@ -17,13 +17,17 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+      with: 
+        clean: true
+        lfs: true
+        submodules: true
 
     - name: Set up environment
       run: |
-        # git clone git@github.com:Homebrew/brew.git
-        git clone https://github.com/Homebrew/brew.git
-        sudo brew/bin/brew install automake
-        sudo brew/bin/brew install libtool
+        xcode-select --install
+        mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+        sudo homebrew/bin/brew install automake
+        sudo homebrew/bin/brew install libtool
 
     - name: Prepare dependencies
       run: |
@@ -41,6 +45,10 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+      with: 
+        clean: true
+        lfs: true
+        submodules: true
 
     - name: Set up environment
       run: |
