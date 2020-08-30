@@ -6,72 +6,57 @@ notifications:
 git:
   submodules: true
 
-matrix:
-  # linux gcc 4-7
-  # macos xcode 9-10
-  include:
-  # works on Precise and Trusty
-  - os: linux
-    addons:
-    apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - g++-4.9
-    env:
-    - UBUNTU_UBUNTU_MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
-  # works on Precise and Trusty
-  - os: linux
-    addons:
-    apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - g++-5
-    env:
-    - UBUNTU_MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
-  # works on Precise and Trusty
-  - os: linux
-    addons:
-    apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - g++-7
-    env:
-    - UBUNTU_MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-  # macos
-  - os: osx
-    osx_image: xcode9.4
-  - os: osx
-    osx_image: xcode10.1
+build:
+  jobs:
+    - name: ubuntu_deploy
+    dist: trusty
+    include:
+    - os: linux
+      sources:
+      - ubuntu-toolchain-r-test
+      packages:
+      - g++-4.9
+      env:
+      - UBUNTU_UBUNTU_MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+    - os: linux
+      sources:
+      - ubuntu-toolchain-r-test
+      packages:
+      - g++-5
+      env:
+      - UBUNTU_MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
+    # works on Precise and Trusty
+    - os: linux
+      sources:
+      - ubuntu-toolchain-r-test
+      packages:
+      - g++-7
+      env:
+      - UBUNTU_MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+    before_install:
+      - eval "${UBUNTU_MATRIX_EVAL}"
+    install:
+      - sudo apt-get install automake
+      - sudo apt-get install libtool
+    before_script:
+      git submodule update --init --remote --recursive
+      source env.sh
+    script:
+      ./build.sh
 
-
-before_script:
-  git submodule update --init --remote --recursive
-
-stages:
-  - name: ubuntu_deploy
-  before_install:
-    - eval "${UBUNTU_MATRIX_EVAL}"
-  install:
-    - sudo apt-get install automake
-    - sudo apt-get install libtool
-  before_script:
-    git submodule update --init --remote --recursive
-    source env.sh
-  script:
-    ./build.sh
-
-stages:
-  - name: masos_deploy
-  before_install:
-    # - eval "${UBUNTU_MATRIX_EVAL}"
-  install:
-    - brew install automake
-    - brew install libtool
-  before_script:
-    git submodule update --init --remote --recursive
-    source env.sh
-  script:
-    ./build.sh
+build:
+  jobs:
+    - name: masos_deploy
+    include:
+    - os: osx
+      osx_image: xcode9.4
+    - os: osx
+      osx_image: xcode10.1
+    install:
+      - brew install automake
+      - brew install libtool
+    before_script:
+      git submodule update --init --remote --recursive
+      source env.sh
+    script:
+      ./build.sh
