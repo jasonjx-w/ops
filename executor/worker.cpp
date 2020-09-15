@@ -6,7 +6,7 @@
 //         workers_.SetUp();
 //     }
 // }
-// 
+//
 // Kernel Worker::NodeToKernel(const Node *node) {
-// 
+//
 // }
