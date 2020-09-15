@@ -7,7 +7,6 @@
 
 namespace ops {
 
-
 class Node {
   std::string device_ = "default";
   std::string type_ = "invalid";
@@ -20,7 +19,6 @@ class Node {
   std::list<Node *> in_nodes_;
   std::list<Node *> out_nodes_;
 };
-
 }
 
 #endif
