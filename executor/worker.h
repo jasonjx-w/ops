@@ -1,14 +1,14 @@
 #ifndef EXECUTOR_WORKER_H_
 #define EXECUTOR_WORKER_H_
 
-#include <algorithm>
-#include <queue>
 #include "executor.h"
 #include "kernels.h"
+#include <algorithm>
+#include <queue>
 
 namespace ops {
 
-enum Device { DEFAULT_DEVICE, DEFAULT_CPU, DEFAULT_GPU };
+enum Device { DEVICE_DEFAULT, DEVICE_CPU, DEVICE_GPU };
 
 class Worker {
  public:
