@@ -41,7 +41,6 @@ jobs:
     - name: Build
       run: |
         source env.sh
-        ./build.sh
 
   # This workflow contains a single job called "build"
   ubuntu-deploy:
@@ -70,4 +69,3 @@ jobs:
     - name: Build
       run: |
         source env.sh
-        ./build.sh

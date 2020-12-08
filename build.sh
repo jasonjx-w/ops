@@ -48,5 +48,5 @@ pushd ${BUILD_DIR}
  -DOPS_JUST_LIBRARY='OFF' \
  ..
 
- make -j32
+ # make -j32
 popd
