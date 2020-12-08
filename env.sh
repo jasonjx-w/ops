@@ -1,20 +1,38 @@
 #!/bin/bash
-# set -e
+set -e
 
-export PATH=$PATH:/${PWD}/build/bin:${PWD}/tools
-export LIBRARY_PATH=$LIBRARY_PATH:/${PWD}/build/lib
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/${PWD}/build/lib
+#########################################################
+#   config
+#########################################################
+echo "-- Config PATH/LIBRARY_PATH/LD_LIBRARY_PATH ..."
+export PATH=${PWD}/build/bin:$PATH
+export LIBRARY_PATH=${PWD}/build/lib:$LIBRARY_PATH
+export LD_LIBRARY_PATH=${PWD}/build/lib:$LD_LIBRARY_PATH
 
+echo "-- Config git hooks ..."
 if [ -d "${PWD}/.git/" ]; then
-  if [ -f "${PWD}/tools/commit-template" ]; then
-    git config --local commit.template tools/commit-template
-  else
-    echo "tools/commit-template doesn't exist."
-    exit 1
+  # .git is dir, use config files in tools/
+  COMMIT_TEMPLATE="${PWD}/tools/commit-template"
+  if [ -f $COMMIT_TEMPLATE ]; then
+    git config --local commit.template $COMMIT_TEMPLATE
+    echo "-- Set commit-template as ${COMMIT_TEMPLATE}."
   fi
 
+  PRE_COMMIT="${PWD}/tools/pre-commit"
   if [ -f "${PWD}/.git/hooks/pre-commit" ]; then
     rm -f ${PWD}/.git/hooks/pre-commit
   fi
-  ln -sf ${PWD}/tools/pre-commit ${PWD}/.git/hooks
+  ln -s $PRE_COMMIT ${PWD}/.git/hooks
+  echo "-- Set pre-commit as ${PRE_COMMIT}."
+fi
+
+export OPS_BUILD_ENV_ENABLED=1
+
+#########################################################
+#   env check
+#########################################################
+if [ "$(which clang-format)" == "" ];then
+  echo "Please install clang-format."
+  echo "sudo apt-get install clang-format"
+  echo "brew install clang-format"
 fi
